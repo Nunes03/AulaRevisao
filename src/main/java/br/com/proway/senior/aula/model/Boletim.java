@@ -23,7 +23,7 @@ public class Boletim {
 	private static ArrayList<Prova> provas;
 
 	/***
-	 * <h1>Cria um novo {@link Boletim}</h1>
+	 * <h1>Cria um novo {@link Boletim}.</h1>
 	 * 
 	 * <p>
 	 * O {@link Boletim} é criado a partir de um {@link Aluno} e um período.
@@ -31,10 +31,14 @@ public class Boletim {
 	 * média.
 	 * </p>
 	 * 
+	 * @author Lucas Nunes
+	 * 
 	 * @param aluno
 	 * @param periodo
 	 * @param media
 	 * @param provas
+	 * 
+	 * @author Lucas Nunes
 	 * 
 	 * @see Aluno
 	 * @see Boletim
@@ -45,10 +49,15 @@ public class Boletim {
 		this.periodo = periodo;
 	}
 
-	/**
-	 * <h1>{@link Aluno} do {@link Boletim}</h1>
+	/***
+	 * <h1>{@link Aluno} do {@link Boletim}.</h1>
 	 * 
-	 * @return Aluno referente ao {@link Aluno}
+	 * @author Lucas Nunes.
+	 * 
+	 * @return Aluno, referente ao {@link Aluno}.
+	 * 
+	 * @author Lucas Nunes.
+	 * 
 	 * @see Aluno
 	 * @see Boletim
 	 */
@@ -56,11 +65,16 @@ public class Boletim {
 		return aluno;
 	}
 
-	/**
-	 * <h1>Periodo do {@link Boletim} no formato YYYYMM</h1>
+	/***
+	 * <h1>Período do {@link Boletim} no formato YYYYMM.</h1>
 	 * 
-	 * @return Integer referente ao periodo
-	 * @see Boletim
+	 * @author Lucas Nunes.
+	 * 
+	 * @return Integer referente ao periodo.
+	 * 
+	 * @author Lucas Nunes.
+	 * 
+	 * @see Boletim, referente ao boletim da classe.
 	 */
 	public Integer getPeriodo() {
 		return periodo;
@@ -70,6 +84,9 @@ public class Boletim {
 	 * <h1>Retorna a média das {@link Prova} atualizadas.</h1>
 	 * 
 	 * @return Double referente a media
+	 * 
+	 * @author Lucas Nunes.
+	 * 
 	 * @see Prova
 	 */
 	public Double getMedia() {
@@ -80,6 +97,9 @@ public class Boletim {
 	 * <h1>Retorna todas as {@link Prova}</h1>
 	 * 
 	 * @return ArrayList<Prova> referente a todas as provas
+	 * 
+	 * @author Lucas Nunes.
+	 * 
 	 * @see Prova
 	 */
 	public ArrayList<Prova> getProvas() {
@@ -87,13 +107,17 @@ public class Boletim {
 	}
 
 	/**
-	 * <h1>Adiciona uma avaliaçõa ao {@link Boletim}</h1>
+	 * <h1>Adiciona uma avaliação ao {@link Boletim}</h1>
 	 * 
 	 * <p>
-	 * Ao adicionar a {@link Prova} a média é recalculada
+	 * Ao adicionar a {@link Prova} a média é recalculada.
 	 * </p>
 	 * 
-	 * @param prova Prova, referente a {@link Pova} informada
+	 * @param prova {@link Prova}, referente a {@link Prova} informada.
+	 * 
+	 * @throws Exception Prova não pode ser nula.
+	 * 
+	 * @author Lucas Nunes.
 	 * 
 	 * @see Prova
 	 * @see Boletim
@@ -103,6 +127,7 @@ public class Boletim {
 			throw new Exception("Prova inválida");
 		} else {
 			provas.add(prova);
+			calcularMedia();
 		}
 	}
 
@@ -113,7 +138,13 @@ public class Boletim {
 	 * Ao remover a {@link Prova}, a média é recalculada.
 	 * </p>
 	 * 
+	 * 
 	 * @param index int, referente ao index do ArrayList.
+	 * 
+	 * @throws Exception Index não pode ser meor que 0 ou
+	 * maior que o tamanho do ArrayList.
+	 *
+	 * @author Lucas Nunes
 	 * 
 	 * @see Boletim
 	 * @see Prova
@@ -130,6 +161,7 @@ public class Boletim {
 	/**
 	 * <h1>Remove todas as provas.</h1>
 	 * 
+	 * @author Lucas Nunes
 	 */
 	public void removeTodasProvas() {
 		ArrayList<Prova> provas = new ArrayList<Prova>();
@@ -137,21 +169,25 @@ public class Boletim {
 	}
 
 	/**
-	 * <h1>Calcula a média ponderada das {@link Prova}.</h1>
+	 * <h1>Calcula a média ponderada da {@link Prova}.</h1>
 	 * 
 	 * <p>
-	 * Realiza o cálculo da média das notas das {@link Prova} e atualiza o valor da
-	 * media.
+	 * Realiza o cálculo da média ponderada das {@link Prova} e atualiza o valor da
+	 * média.
 	 * </p>
+	 * 
+	 * @author Lucas Nunes
 	 * 
 	 * @see Prova
 	 */
 	public void calcularMedia() {
 		Double soma = 0.0;
+		int peso = 0;
 		for (Prova prova : provas) {
-			soma += prova.getNota();
+			soma += prova.getNota() * prova.getPeso();
+			peso += prova.getPeso();
 		}
-		this.media = (soma / provas.size());
+		this.media = (soma / peso);
 	}
 
 }
